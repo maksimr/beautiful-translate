@@ -90,23 +90,22 @@ var echoTranslator = {
 				clearInterval(this.handle);
 		}
 		node.setAttribute('style',style);
-		this.handle = setInterval(function () { 
+		this.handle = setInterval(hitch(this,function () { 
 				if (count <= 0){
-						doc.body.removeChild(node);
-						clearInterval(this.handle);
+           this.remove();
 				}
 				node.style.opacity = count/time;
 				count--; 
-		}, 100);
+		}), 100);
 	 },
 	 remove: function(){
-				if(this.node){
-						var orign = this.node.parentNode;
-						orign.removeChild(this.node);
-						clearInterval(this.handle);
-						this.node = null;
-				}
-					 },
+    if(this.node){
+        var orign = this.node.parentNode;
+        orign.removeChild(this.node);
+        clearInterval(this.handle);
+        this.node = null;
+    }
+   },
   _toStyle: function(obj){
 		 var style = "";
 		 for (var i in obj){ style += i.replace("_","-") + ":" + obj[i] +";"; }
@@ -127,30 +126,37 @@ var translator = {
 	input: null,
 	eve: 'keypress',
 
-	update: function () {
+	_initilization: function () {
 		this.langpair = ((options["langpair"]) ? options["langpair"] : "en|ru").split("|");
+		this.flytranslate = (options["flytranslate"]) ? options["flytranslate"] : false;
 		this.conv = "en|" + this.langpair[1];
 		this.tl = this.langpair[0];
 		this.hl = this.langpair[1];
 	},
+	_listener: function (e) {
+    this.input = e.originalTarget;
+    if (this.input.value.search("^"+this.cmdname+" ") != -1) {
+      if (this.flytranslate){
+        var preValue = this.input.value.replace(this.cmdname,"");
+        this.translate([preValue]);
+      }
+      if (e.charCode == 32) {
+        var reg = /[\w\']+$/i;
+        var text = this.input.value.match(reg)[0];
+        this.convertor(text);
+      } 
+    }
+	},
 	constructor: function () {
-		this.update();
+		this._initilization();
 		this.cmdline = this.cmdline || document.getElementById('dactyl-commandline');
 		this.cmdline.addEventListener(this.eve, hitch(this,this._listener), true);
 	},
-	_listener: function (e) {
-			this.input = e.originalTarget;
-			if (this.input.value.search("^"+this.cmdname+" ") != -1) {
-				if (this.flytranslate){
-					var preValue = this.input.value.replace(this.cmdname,"");
-					this.translate([preValue]);
-				}
-				if (e.charCode == 32) {
-					var reg = /[\w\']+$/i;
-					var text = this.input.value.match(reg)[0];
-					this.convertor(text);
-				} }
-	},
+  update: function(value){
+		this._initilization();
+    //this.cmdline.removeEventListener(this.eve, this._listener);
+    //this.cmdline.addEventListener(this.eve, hitch(this,this._listener), true);
+  },
 	convertor: function (args) {
 		this.url = 'http://www.google.com/transliterate?tlqt=1&langpair=' + encodeURIComponent(this.conv) + '&text=' + encodeURIComponent(args) + '%2C&tl_app=8&num=5&version=2';
 		var xhr = new xhrGET(this.url, hitch(this, function (response) {
@@ -178,6 +184,13 @@ commands.addUserCommand(["btr[anslate]"], "Translate Text by Google Translator",
 });
 
 options.add(["langpair", "lng"], "Define languages for translate", "string", "en|ru", {
+	setter: function (value) {
+		translator.update(value);
+		return value;
+	}
+});
+
+options.add(["flytranslate", "flytr"], "Instance translate", "boolean", true, {
 	setter: function (value) {
 		translator.update();
 		return value;
