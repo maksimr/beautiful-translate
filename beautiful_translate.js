@@ -61,16 +61,18 @@ var xhrGET = function (url, callback) {
 
 // ECHO MESSAGE {{{
 var echoTranslator = {
-  time: 600,
+  time: 800,
   node: null,
   style: { 
 				 display: "block",
 				 position: "fixed",
 				 left: 0,
 				 bottom: 0,
+         background_color: "#f2f2f2",
+         border: "1px solid #dcdcdc",
 				 color: "#3A3A3A",
-				 font_size: "18px",
-				 padding: "5px",
+				 font_size: "16px",
+				 padding: "2px",
 				 opacity: 1
 	 },
   echo: function(message){
