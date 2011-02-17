@@ -4,6 +4,65 @@
 //TODO: do not define langpair in .pentadactylrc on loaded
 //Resolves to write Latin.
 
+//ICONS {{{
+	var ICO_TERMINAL = 'data:image/png;base64,' +
+	'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgI'+
+	'fAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3'+
+	'Lmlua3NjYXBlLm9yZ5vuPBoAAAAOdEVYdFRpdGxlAFRlcm1pbmFs1fugkQAA'+
+	'ABd0RVh0QXV0aG9yAExhcG8gQ2FsYW1hbmRyZWnfkRoqAAAAKXRFWHREZXNj'+
+	'cmlwdGlvbgBCYXNlZCBvZiBKYWt1YiBTdGVpbmVyJ3Mgd29yayfTJ5kAAAhx'+
+	'SURBVGje7VpdbxzVGX7nY2fXju398MeSJlHSC5CCqbiA9g+0VVXUcg3qTSUg'+
+	'V3CDKEhIkYhAROIOCW5QQ3JD0gtapEoVaiv1D7RUpIi0JQQ5Ch9ee+PE3l17'+
+	'd3Y+eJ/3nDNzxjb2BiRYJE90NGd2Z2af532f533PjOOkaUrf5839XqM/IHBA'+
+	'4IAA+fbBY6d++xvHcV5N4nh23IB6ntdK0vTUuTcu/HlXAmfOnHEdcl5bPPmj'+
+	'WqM+dvhpZXW5+dHV/7/O090JLC0tBa5PtZ/99OfEWSDXdcFa9t9kjnslSUJx'+
+	'HMvejL2Od5uHYUj//d+Hd+0pIUrVRZcvX5ZD/Pgo26jn7baN0kgRjMXFRUoY'+
+	'354EcDOMwWBAp194YSykg+C8cvbsV5ItEiB1wnA4lHF7bY1cvoEjsuA9/yM5'+
+	'duTGZuCze+6+h04cP07DaEgRpz3i66MoogGn/sqVK8SFQYPg0ue59JMHf0y4'+
+	'3ZC/D/F7g5CvjSjk4OEafI59yNcBOJSRJuloGcAAsLnZWf4xjyYnJ6jfH5DC'+
+	'r8lY4LE/8cMTND83J6CHw4hJREKi3W5To9EoRPDY0WN05OgR1jUDDwcSrMEA'+
+	'REIhMuB9iH2/T8urqwVc+xKw5xvdLi00F+j8m+fpyaeeos8+/0xM5Whz2gOG'+
+	'3dzclChGhgBn48anN6jL90l1+BGQJt8T55pIh9aAfEGiz8RAoBjcffpAolME'+
+	'0wDU7BzKqUPnL1ygP779Nv3+zXP0p3fekRsh+K7JAINfmF/g62MlHyYR8+gz'+
+	'mFIQUAP3SZVEjx05SnXOCMAGQVnJZxgWpDRg8BXOTn9ri3pbyxIcG9++GQAB'+
+	'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'+
+	'S1dOPRU7KVP6AAAAAElFTkSuQmCC';
+// }}}
+
+
 //PLUGIN DOCUMENTATION {{{
 //var INFO =
 //<plugin name="btranslate" version="0.3"
@@ -65,14 +124,15 @@ var echoTranslator = {
   node: null,
   style: { 
 				 display: "block",
+         height_min: "48px",
 				 position: "fixed",
 				 left: 0,
 				 bottom: 0,
-         background_color: "#f2f2f2",
+         background: "url('"+ICO_TERMINAL+"') no-repeat 0 0 #f2f2f2",
          border: "1px solid #dcdcdc",
 				 color: "#3A3A3A",
 				 font_size: "16px",
-				 padding: "2px",
+				 padding: "12px 5px 12px 54px",
 				 opacity: 1
 	 },
   echo: function(message){
@@ -83,7 +143,7 @@ var echoTranslator = {
 		var node = window.content.document.getElementById('beautiful-translate-node');
 		if (!node){
 				this.remove();
-				this.node = node = doc.createElement("span");
+				this.node = node = doc.createElement("div");
 				node.setAttribute('id','beautiful-translate-node');
 				node.innerHTML = message;
 				doc.body.appendChild(node);
