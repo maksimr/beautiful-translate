@@ -9,8 +9,8 @@ var INFO =
     <h2>Description</h2>
     <strut/>
     <p>
-     To use the translation you have to call the command <ex>:btranslate some text</ex>
-     also you must define option <oa>langpair</oa> in your .pentadactylrc, on default it is "en|ru".
+     To use the translation you have to call the command <ex>:btranslate ENTER</ex>,and in new command line enter text,
+     also you must define command option <oa>langpair</oa> on default it is "en|ru".
      This plugin allow you translate text using "Google Translator".
      Also you can use option "allow to write latin".
      About Errors please notify me by email.

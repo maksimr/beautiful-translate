@@ -2,7 +2,7 @@ var app = dactyl.plugins.app;
 
 //SETTINGS {{{
 var settings = {
-	cmdname: "btranslate",
+	cmdname: "translate",
 	flytranslate: true,
 	langpair: "en|ru",
 	conv: "en|ru",
@@ -11,7 +11,7 @@ var settings = {
 	hl: "en",
 	eve: 'onkeyup',
 	update: function (value) {
-		this.langpair = ((options.langpair) ? options.langpair: "en|ru").split("|");
+		this.langpair = ((value) ? value: "en|ru").split("|");
 		this.conv = "en|" + this.langpair[1];
 		this.tl = this.langpair[0];
 		this.hl = this.langpair[0];
@@ -122,27 +122,6 @@ function _build() {
 		textbox.value = "";
 	};
 
-	//textbox.oninput = function (evt) {
-		//if (evt.keyCode == 9) {
-			//evt.preventDefault();
-		//}
-		//var regex = /(\w+)(?:\D)?(?:\s)*?$/img;
-		//var lwordArray = regex.exec(evt.target.value);
-		//var testArrays = ['test', 'hello'];
-		//if (lwordArray) {
-			//var result = app.filter(testArrays, function (elem) {
-				//return elem.search(lwordArray[1]) > -1;
-			//},
-			//this);
-      //var compl = function () {
-        //app.console.log(lwordArray,evt);
-        //evt.target.value = evt.target.value.replace(lwordArray[1], result[0]);
-        //evt.target.setSelectionRange(lwordArray[1].length,result[0].length);
-      //};
-      //var action = result.length > 0 ? compl() : null;
-		//}
-	//};
-
 	textbox[settings.eve] = function (evt) {
 		if (evt.keyCode == 32) {
 			var regex = /(\w+)(?:\D)?(?:\s)*?$/img;
@@ -193,17 +172,15 @@ function _build() {
 //FIXME: I'm compelled to do because node("dactyl-container") on moment when call this file there is no 
 var flag;
 
-commands.add([settings.cmdname + "[]"], "Google Translator", function (args) {
-	flag = (flag) ? true: Boolean(_build());
-	var cmdline = app.byId('google-translator-console');
-	cmdline._show();
-});
-
-options.add(["langpair"], "Define languages for translate", "string", "en|ru", {
-	setter: function (value) {
-		settings.update(value);
-		return value;
-	}
+commands.add(["btran[slate]"], "Google Translator", function (args) {
+  if (args['-langpair']){
+    settings.update(args['-langpair']);
+  }
+  flag = (flag) ? true: Boolean(_build());
+  var cmdline = app.byId('google-translator-console');
+  cmdline._show();
+},{
+   options: [[["-langpair"], commands.OPTION_STRING]]
 });
 
 // vim: set fdm=marker sw=2 ts=2 sts=2 et:
