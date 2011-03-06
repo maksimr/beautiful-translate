@@ -146,7 +146,7 @@ function _build() {
 		var single = (args.match(/\S+/ig).length > 1) ? "": "&ssel=0&tsel=0&notlr=0";
 		var url = "http://translate.google.com/translate_a/t?client=t&text=" + encodeURIComponent(args) + "&hl=" + settings.hl + "&sl=" + settings.sl + "&tl=" + settings.tl + "&multires=1&otf=1&trs=1" + single + "&sc=1";
 
-		var xhr = app.xhrGet({
+		var xhr = app.xhrPost({
 			url: url,
 			load: app.hitch(this, function (response) {
 				//0: [[translate,word,"",cyrillic]]

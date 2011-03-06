@@ -128,6 +128,22 @@ dactyl.plugins.app = {
 		};
 		xhr.setRequestHeader("Content-Type", args.contentType || _defaultContentType);
 		xhr.send(null);
+	},
+	xhrPost: function (args) {
+		var xhr = new XMLHttpRequest();
+		var _defaultContentType = "application/x-www-form-urlencoded";
+		xhr.open("POST", args.url, true);
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					return args.load(xhr.responseText);
+				} else {
+					return null;
+				}
+			}
+		};
+		xhr.setRequestHeader("Content-Type", args.contentType || _defaultContentType);
+		xhr.send(null);
 	}
 	//}}}
 };
