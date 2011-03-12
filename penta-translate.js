@@ -172,7 +172,7 @@ function _build() {
 //FIXME: I'm compelled to do because node("dactyl-container") on moment when call this file there is no 
 var flag;
 
-commands.add(["btran[slate]"], "Google Translator", function (args) {
+group.commands.add(["btran[slate]"], "Google Translator", function (args) {
   if (args['-langpair']){
     settings.update(args['-langpair']);
   }
