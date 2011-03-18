@@ -1,6 +1,6 @@
 /* AUTHOR:  Maksim Ryzhikov
  * NAME:    simple-translate(beautiful-translate)
- * VERSION: 1.0
+ * VERSION: 1.1b
  * URL: https://github.com/maksimr
  *
  * DEPENDENCY: Latest version app-lib(0.3)
@@ -32,7 +32,29 @@
 
 var app = dactyl.plugins.app;
 
-var TRANSLATOR = {
+app.declare("tr[anslate]",null,{
+	description: "Google Translator for pentadactyl",
+	onExecute: function(args){
+		if (args['-langpair'] || args['-L']) {
+			this.set("langpair", args['-langpair'] || args['-L']);
+		}
+		this.translate(args);
+	},
+	mate: {
+		completer: function (context, args) {
+			if (args['-convert']||args['-C']){
+				this.set("convert", args['-convert'] || args['-C']);
+				this.converter(context, args);
+			}
+		},
+		options: [{
+			names: ['-langpair','-L'],
+			type: commands.OPTION_STRING
+		},{
+			names: ['-convert','-C'],
+			type: commands.OPTION_STRING
+		}]
+	},
 	langpair: "en|ru",
 	convert: "en|ru",
 	hl: "en",
@@ -77,26 +99,4 @@ var TRANSLATOR = {
 			})
 		});
 	}
-};
-
-group.commands.add(["tra[nslate]"], "Google Translator", function (args) {
-	if (args['-langpair'] || args['-L']) {
-		TRANSLATOR.set("langpair", args['-langpair'] || args['-L']);
-	}
-	TRANSLATOR.translate(args);
-},
-{
-	completer: function (context, args) {
-		if (args['-convert']||args['-C']){
-			TRANSLATOR.set("convert", args['-convert'] || args['-C']);
-			TRANSLATOR.converter(context, args);
-		}
-	},
-	options: [{
-		names: ['-langpair','-L'],
-		type: commands.OPTION_STRING
-	},{
-		names: ['-convert','-C'],
-		type: commands.OPTION_STRING
-	}]
 });
