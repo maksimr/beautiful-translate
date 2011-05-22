@@ -1,0 +1,29 @@
+/* AUTHOR:  Maksim Ryzhikov
+ * NAME:    simple-translate
+ * VERSION: 2.0
+ * URL: https://github.com/maksimr
+ *
+ * DESCRIPTION: 
+ * This plugin allow you translate text using google ajax translator,
+ * you can also use the options "Allow the writing of Latin".
+ * Languages support this option: 
+ * Russian[ru], Arabic[ar], Greek[el], Persian[fa], Serbian[sr], Urdu[ur], Hindi[hi]
+ *
+ * DONE:
+ * +---------------------------------------------+
+ * removed dependencies from app-lib      
+ * +---------------------------------------------+
+ * +---------------------------------------------+
+ * now you may add in .pentadactylrc
+ *
+ * set langpair="en|ru"
+ *
+ * +---------------------------------------------+
+ * +---------------------------------------------+
+ * command option -C or -conv is boolean key
+ *
+ * his value define in .pentadactylrc
+ * set conv="ru"
+ *
+ * +---------------------------------------------+
+ */
