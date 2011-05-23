@@ -69,6 +69,9 @@ Translator.prototype.converter = function (context, args) {
 var tr = new Translator();
 
 group.commands.add(["translate", "tr"], "Google Translator", function (args) {
+  if (args['-conv']||args['-C'] && !(args['-langpair'] || args['-L'])){
+    args['-langpair'] = tr.langpair.replace(/([a-z]{2})\|([a-z]{2})/i,'$2|$1');
+  }
 	tr.translate(args, args['-langpair'] || args['-L']);
 },
 {
