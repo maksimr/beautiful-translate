@@ -3,7 +3,29 @@
  * VERSION: 2.0
  * URL: https://github.com/maksimr
  */
-var app = dactyl.plugins.app;
+//INFORMATION {{{
+var INFO =
+<plugin name="simple-translate" version="2.0"
+    href="https://github.com/maksimr/beautiful-translate"
+    summary="simple-translate allwo you translate text using google translator"
+    xmlns={NS}>
+    <author email="rv.maksim@gmail.com">Ryzhikov Maksim</author>
+    <license href="http://opensource.org/licenses/mit-license.php">MIT License</license>
+    <project name="Pentadactyl" minVersion="1.0"/>
+    <p>
+			This plugin allow you translate text from command line using google translator
+			you can also use the options "Allow the writing of Latin".
+			Languages support this option: 
+			Russian[ru], Arabic[ar], Greek[el], Persian[fa], Serbian[sr], Urdu[ur], Hindi[hi]
+    </p>
+    <p>
+			To determine the translation languages you can use optional arguments -langpair|-L 
+			or define in your .pentadactylrc 'set langpair="en|ru"'.
+			For using opton "Allow the writing of Latin" you must define in
+			your .pentadactylrc 'set conv="ru"' and in command line use arguments -conv|-C
+    </p>
+</plugin>;
+//}}}
 
 var Translator = function () {};
 /*
