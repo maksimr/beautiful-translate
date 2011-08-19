@@ -92,13 +92,13 @@ group.commands.add(["translate", "tr"], "Google Translator", function (args) {
 		description: "Allow the writing of Latin"
 	}]
 });
-options.add(["langpair", "lang"], "Determine translation languages", "string", "en|ru", {
+group.options.add(["langpair", "lang"], "Determine translation languages", "string", "en|ru", {
 	setter: function (value) {
 		Translator.prototype.langpair = value;
 		return value;
 	}
 });
-options.add(["conv", "cnv"], "Define languages for writing of Latin", "string", "ru", {
+group.options.add(["conv", "cnv"], "Define languages for writing of Latin", "string", "ru", {
 	setter: function (value) {
 		Translator.prototype.conv = value;
 		return value;
