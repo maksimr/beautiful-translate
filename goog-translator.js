@@ -1,6 +1,6 @@
 /* AUTHOR:  Maksim Ryzhikov
  * NAME:    simple-translate(beautiful-translate)
- * VERSION: 3.0
+ * VERSION: 3.1
  * URL: https://github.com/maksimr
  */
 
@@ -16,38 +16,22 @@
 		conv: "ru",
 		count: 5,
 		/**
-     * TRICK
      * @param {array} query
      * @param {string} langpair
      * @returns {XMLHttpRequest}
      */
 		_translate: function (query, langpair) {
-      var [hl,tl] = (langpair || this.langpair).split("|"),
+			var [hl, tl] = (langpair || this.langpair).split("|"),
 			sl = hl;
 			return util.httpGet("http://translate.google.com/translate_a/t?client=t&text=" + encodeURIComponent(query.join(' ')) + "&hl=" + hl + "&sl=" + sl + "&tl=" + tl + "&multires=1&otf=1&trs=1&sc=1", {
 				callback: function (response) {
-          var arr = eval(response.responseText);
+					var arr = eval(response.responseText);
 					dactyl.echomsg(arr[0][0][0]);
 				}.bind(this)
 			});
 		},
-		/**
-     * DEPRECATED GOOGLE API
-     * @param {array} query
-     * @param {string} langpair
-     * @returns {XMLHttpRequest}
-     */
 		translate: function (query, langpair) {
-			return util.httpGet("http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=" + encodeURIComponent(query.join(" ")) + "&langpair=" + encodeURIComponent(langpair || this.langpair), {
-				callback: function (response) {
-					var resp = JSON.parse(response.responseText);
-					if (resp.responseStatus === 200) {
-						dactyl.echomsg(resp.responseData.translatedText);
-					} else {
-						this._translate(query, langpair);
-					}
-				}.bind(this)
-			});
+			return this._translate(query, langpair);
 		},
 		/**
      * @param {object} context
@@ -86,7 +70,7 @@
 		completer: function (context, args) {
 			if (args['-conv'] || args['-C']) {
 				goog.tranlator.converter(context, args);
-        context.incomplete = true;
+				context.incomplete = true;
 			}
 		},
 		options: [{
